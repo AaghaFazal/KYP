@@ -59,3 +59,9 @@ body {
 .soft:hover {
     background-color: #4592a0;
 }
+
+   footer {
+      text-align: center;
+      color: red;
+           margin-bottom: 20px;
+    }
