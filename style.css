@@ -1,0 +1,60 @@
+/* Style for navigation */
+nav {
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center; /* Center align the content */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block; /* Use inline-block to center */
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Style for heading */
+.heading-one {
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.heading-one {
+    margin-top: 10%; 
+    text-align: center;
+    color: #321dba; 
+}
