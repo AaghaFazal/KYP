@@ -1,0 +1,66 @@
+/* Style for navigation */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+nav {
+    background-color: #ee7009;
+    padding: 10px 0;
+    border-radius: 10px;
+    border: 4px solid #050000;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block; /* Use inline-block to center */
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+nav ul li a:hover {
+    background-color: #efa162;
+}
+
+/* Style for heading */
+.heading-one {
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Style for the GIF container */
+.gif-container {
+    text-align: center;
+    margin-top: 30px; /* Margin on the top, adjust as needed */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style for the GIF image */
+.gif-container img {
+    width: 80%; /* Set the width of the GIF to 80% of the container */
+    height: auto; /* Maintain the aspect ratio */
+    display: block;
+    margin: 0 auto; /* Center the GIF horizontally */
+}
+
+/* Style for the clickable description */
+.clickable-description {
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.clickable-description p {
+    font-size: 36px; /* Set font size */
+    font-weight: bold; /* Make the description bold */
+    text-align: center; /* Center the description text */
+}
