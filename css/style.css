@@ -1,0 +1,224 @@
+@font-face {
+    font-family: 'Road_Rage';
+    src: url('fonts/Road_Rage.otf') format('opentype'); /* Replace with your font path */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'hack';
+    src: url('fonts/Hacked\ 400.ttf') format('truetype'); /* Replace with your font path */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Keyframes for typing animation */
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+/* Navigation bar styling */
+nav {
+    position: fixed; /* Fixed position to keep it at the top */
+    top: 0; /* Place it at the top of the page */
+    width: 100%; /* Full width of the viewport */
+    background-color: #fff; /* Background color for the nav */
+    z-index: 1000; /* Ensure the nav is on top */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a slight shadow for visibility */
+    text-align: center; /* Center-align the text in the nav */
+    padding: 10px 0; /* Add padding for spacing */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex; /* Display list items inline */
+    justify-content: center; /* Center the links */
+    margin: 0;
+    width: 100%; /* Full width of the nav */
+}
+
+nav li {
+    flex: 1; /* Ensure equal spacing for each link */
+}
+
+nav a {
+    text-decoration: none;
+    padding: 10px 20px; /* Add some padding for spacing */
+    color: black;
+    font-weight: bold; /* Make the font bold */
+    font-size: 18px; /* Adjust the font size */
+    display: block; /* Ensure the link spans the full height */
+    text-align: center; /* Center the text within the links */
+    border-bottom: 2px solid transparent; /* Underline style for hover */
+    width: 100%; /* Ensure the link spans the full width */
+}
+
+/* Underline and color on hover */
+nav a:hover {
+    color: red; /* Set hover color to red */
+    border-bottom-color: red; /* Set underline to red on hover */
+}
+
+/* Highlight the active link */
+nav a.active {
+    font-weight: bold;
+    color: red; /* Change the active link color to red */
+    border-bottom-color: red; /* Set the underline of active link to red */
+}
+
+/* Sections */
+section {
+    padding: 20px;
+    min-height: 400px;
+    margin-top: 60px; /* Account for fixed nav bar height */
+}
+
+/* Apply custom font to the heading-one class */
+.section-title {
+    font-family: 'Road_Rage', sans-serif;
+    font-size: 34px; /* Adjust font size as needed */
+    text-shadow: #ce1b11;
+    color: black; /* Change color as needed */
+}
+
+/* Style for the GIF container */
+.gif-container {
+    text-align: center;
+    margin-top: 30px; /* Margin on the top, adjust as needed */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Style for the GIF image */
+.gif-container img {
+    width: 60%; /* Set the width of the GIF to 80% of the container */
+    height: auto; /* Maintain the aspect ratio */
+    display: block;
+    margin: 0 auto; /* Center the GIF horizontally */
+}
+
+/* Style for the clickable description */
+.clickable-description {
+    text-decoration: none; /* Remove underline from the link */
+}
+
+
+/* CSS for the typing effect */
+.clickable-description p {
+    overflow: hidden; /* Hide overflow */
+    border-right: 2px solid black; /* Cursor at the end */
+    white-space: nowrap; /* Keep text on one line */
+    width: 0; /* Initial width is 0 */
+    animation: typing 4s steps(25) forwards, /* Typing animation */
+    blink-caret 0.5s step-end infinite; /* Cursor blink animation */
+        }
+
+
+.clickable-description p {
+    font-family: 'hack', sans-serif;
+    font-size: 33px; /* Set font size */
+    font-weight: bold; /* Make the description bold */
+    text-align: center; /* Center the description text */
+    color: #000000;
+}
+
+/* Apply custom font to the heading-one class */
+.heading-one {
+    color: #000000; 
+}
+
+.heading-two {
+    color: #FF5733; 
+}
+
+.heading-three {
+    color: #000000; 
+}
+
+.era-clickers {
+    list-style: none;
+    padding: 0;
+}
+
+.era-clicker {
+    width: 90%; /* 100% - 5% margin on each side */
+    height: 30px;
+    margin: 0 5%; /* 5% margin on left and right */
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: large;
+    background-color: #166618;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.era-clicker:hover {
+    background-color: #086018ae;
+}
+
+.Softwares {
+    list-style: none;
+    padding: 0;
+}
+
+.soft {
+    width: 90%; /* 100% - 5% margin on each side */
+    height: 30px;
+    margin: 0 5%; /* 5% margin on left and right */
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #ce1b11;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.soft:hover {
+    background-color: #cd5b55;
+}
+
+.materials {
+    list-style: none;
+    padding: 0;
+}
+
+.material {
+    width: 90%; /* 100% - 5% margin on each side */
+    height: 30px;
+    margin: 0 5%; /* 5% margin on left and right */
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: large;
+    background-color: #321dba;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.material:hover {
+    background-color: #7264cb;
+}
+footer {
+    text-align: center;
+    color: red;
+    margin-bottom: 20px;
+ }
