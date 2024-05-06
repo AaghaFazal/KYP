@@ -12,13 +12,12 @@
     font-style: normal;
 }
 
-/* Keyframes for typing animation */
-@keyframes typing {
-    0% {
-        width: 0;
+@keyframes typing{
+    0%{
+        width: 0ch;
     }
-    100% {
-        width: 100%;
+    50%{
+        width: 17ch;
     }
 }
 
@@ -109,29 +108,26 @@ section {
     margin: 0 auto; /* Center the GIF horizontally */
 }
 
+.clickable-description p {
+    font-family: 'hack', sans-serif;
+    width: auto; /* Adjust the width to auto */
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 7s steps(17) infinite alternate;
+    border-right: 3px solid black;
+    display: inline-block; /* Ensures the text is centered */
+    margin: 15px auto 0 auto; /* Adds a top margin of 3px and centers the paragraph */
+}
+
 /* Style for the clickable description */
 .clickable-description {
     text-decoration: none; /* Remove underline from the link */
 }
 
-
-/* CSS for the typing effect */
 .clickable-description p {
-    overflow: hidden; /* Hide overflow */
-    border-right: 2px solid black; /* Cursor at the end */
-    white-space: nowrap; /* Keep text on one line */
-    width: 0; /* Initial width is 0 */
-    animation: typing 4s steps(25) forwards, /* Typing animation */
-    blink-caret 0.5s step-end infinite; /* Cursor blink animation */
-        }
-
-
-.clickable-description p {
-    font-family: 'hack', sans-serif;
-    font-size: 33px; /* Set font size */
+    font-size: 36px; /* Set font size */
     font-weight: bold; /* Make the description bold */
     text-align: center; /* Center the description text */
-    color: #000000;
 }
 
 /* Apply custom font to the heading-one class */
