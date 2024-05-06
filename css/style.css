@@ -17,7 +17,7 @@
         width: 0ch;
     }
     50%{
-        width: 17ch;
+        width: 19ch;
     }
 }
 
@@ -113,7 +113,7 @@ section {
     width: auto; /* Adjust the width to auto */
     overflow: hidden;
     white-space: nowrap;
-    animation: typing 7s steps(17) infinite alternate;
+    animation: typing 7s steps(19) infinite alternate;
     border-right: 3px solid black;
     display: inline-block; /* Ensures the text is centered */
     margin: 15px auto 0 auto; /* Adds a top margin of 3px and centers the paragraph */
