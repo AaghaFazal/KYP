@@ -92,6 +92,126 @@ section {
     color: black; /* Change color as needed */
 }
 
+/* Slideshow container */
+.slideshow-container {
+    width: 100%; /* Full width of its parent */
+    height: 500px; /* Fixed height */
+    position: relative;
+    margin: 0 auto; /* Center the container */
+    overflow: hidden; /* Hide overflow */
+    border-radius: 10px; /* Optional: Add border radius */
+}
+
+/* Slides */
+.mySlides {
+    display: none;
+    position: absolute;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    text-align: center;
+}
+
+/* Style for the images */
+.mySlides img {
+    width: 100%; /* Fill the width */
+    height: 100%; /* Fill the height */
+    object-fit: contain; /* Maintain aspect ratio */
+}
+
+/* Fade effect */
+.mySlides.fade {
+    animation: fadeEffect 1.5s;
+}
+
+/* Animation for fade effect */
+@keyframes fadeEffect {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust vertical centering */
+    width: auto;
+    padding: 16px;
+    color: white; /* Button color */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    font-weight: bold;
+    font-size: 18px; /* Font size */
+    border-radius: 50%; /* Circular buttons */
+    transition: 0.3s; /* Smooth transition */
+    user-select: none; /* Disable text selection */
+}
+
+.next {
+    right: 10px; /* Position the next button to the right */
+}
+
+.prev {
+    left: 10px; /* Position the previous button to the left */
+}
+
+/* On hover, next & prev buttons */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background on hover */
+}
+
+/* Dot controls */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: rgba(255, 255, 255, 0.7); /* Light color for dots */
+    border-radius: 50%; /* Circular dots */
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+/* Active dot control */
+.active, .dot:hover {
+    background-color: white; /* White when active or hovered */
+}
+
+/* Position dots in the center at the bottom */
+.slideshow-container .dots-container {
+    position: absolute;
+    bottom: 20px; /* Position the dots 20px from the bottom */
+    left: 50%; /* Center the dots horizontally */
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 800px) {
+    /* Adjust height when screen width is less than 800px */
+    .slideshow-container {
+        height: 400px; /* Decrease height */
+    }
+    /* Adjust button styles */
+    .prev, .next {
+        padding: 10px; /* Smaller buttons */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    /* Adjust height when screen width is less than 600px */
+    .slideshow-container {
+        height: 300px; /* Decrease height further */
+    }
+    /* Adjust button styles */
+    .prev, .next {
+        padding: 8px; /* Even smaller buttons */
+    }
+}
+
 /* Style for the GIF container */
 .gif-container {
     text-align: center;
