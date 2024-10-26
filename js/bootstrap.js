@@ -4,9 +4,9 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 
-if (window.location.pathname.endsWith("index.html")) {
-  window.history.pushState({}, '', '/');
-}
+// if (window.location.pathname.endsWith("index.html")) {
+//   window.history.pushState({}, '', '/');
+// }
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
