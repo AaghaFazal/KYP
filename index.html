@@ -217,10 +217,13 @@
                     <i data-lucide="x" class="w-5 sm:w-6 h-5 sm:h-6 text-slate-400"></i>
                 </button>
             </div>
-            <form class="space-y-3 sm:space-y-4" onsubmit="event.preventDefault(); submitAdmissionForm();">
-                <input type="text" id="admission-name" placeholder="Your Name" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required>
-                <input type="tel" id="admission-phone" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required title="Please enter a valid 10-digit mobile number">
-                <textarea id="admission-message" placeholder="Any specific course or inquiry?" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none resize-none text-sm sm:text-base" rows="3" required>Interested in KYP Admission</textarea>
+            <form class="space-y-3 sm:space-y-4" action="https://formsubmit.co/249b9f301cf63e85cfd206470fba3f75" method="POST">
+                <!-- FormSubmit config -->
+                <input type="hidden" name="_subject" value="New KYP Admission Inquiry">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="text" id="admission-name" name="Name" placeholder="Your Name" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required>
+                <input type="tel" id="admission-phone" name="Phone" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required title="Please enter a valid 10-digit mobile number">
+                <textarea id="admission-message" name="Message" placeholder="Any specific course or inquiry?" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none resize-none text-sm sm:text-base" rows="3" required>Interested in KYP Admission</textarea>
                 <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 sm:py-4 rounded-lg sm:rounded-xl shadow-lg transition-transform active:scale-95 text-sm sm:text-base">Submit Interest</button>
             </form>
         </div>
@@ -306,9 +309,12 @@
                 <div class="lg:w-1/2 bg-slate-800 p-6 sm:p-8 md:p-12 lg:p-16">
                     <div class="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 shadow-xl">
                         <h3 class="text-lg sm:text-2xl font-bold mb-4 sm:mb-6">Quick Inquiry</h3>
-                        <form class="space-y-3 sm:space-y-4" onsubmit="event.preventDefault(); alert('Inquiry Submitted! Our team will contact you soon.');">
-                            <input type="text" placeholder="Your Name" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required>
-                            <input type="tel" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required title="Please enter a valid 10-digit mobile number">
+                        <form class="space-y-3 sm:space-y-4" action="https://formsubmit.co/249b9f301cf63e85cfd206470fba3f75" method="POST">
+                            <input type="hidden" name="_subject" value="New Quick Inquiry">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="text" name="Name" placeholder="Your Name" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required>
+                            <input type="tel" name="Phone" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none text-sm sm:text-base" required title="Please enter a valid 10-digit mobile number">
+                            <textarea name="Message" placeholder="Any specific course or inquiry?" class="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-slate-200 focus:ring-2 focus:ring-orange-500 outline-none resize-none text-sm sm:text-base" rows="3"></textarea>
                             <button class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 sm:py-4 rounded-lg sm:rounded-xl shadow-lg transition-transform active:scale-95 text-sm sm:text-base">Submit Interest</button>
                         </form>
                     </div>
@@ -382,6 +388,36 @@
 
     <!-- Main Logic Script -->
     <script src="./index.js"></script>
-<script type="module" src="/index.tsx"></script>
+    <script type="module" src="/index.tsx"></script>
+
+    <!-- Inline: intercept FormSubmit forms to avoid redirect/branding -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const forms = Array.from(document.querySelectorAll('form[action^="https://formsubmit.co/"]'));
+      forms.forEach(form => {
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          try {
+            const fd = new FormData(form);
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: fd,
+              headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+              // local acknowledgement (replace with custom UI if desired)
+              alert('Thank you — Inquiry Submitted! Our team will contact you soon.');
+              form.reset();
+              if (typeof window.closeAdmissionModal === 'function') window.closeAdmissionModal();
+            } else {
+              alert('Submission failed. Please try again.');
+            }
+          } catch (err) {
+            alert('Submission failed. Please try again.');
+          }
+        });
+      });
+    });
+    </script>
 </body>
 </html>
