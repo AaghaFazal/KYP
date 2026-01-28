@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FAQ | Archer Foundation - Kushal Yuva Program (KYP)</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<style>
+		body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+		@media (max-width: 768px) { .nav-link { display: none; } }
+	</style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+	<!-- Header (matching index) -->
+	<header id="main-header" class="fixed top-0 w-full z-50 bg-slate-900 text-white py-4">
+		<div class="container mx-auto px-4 md:px-6 flex items-center justify-between">
+			<div class="flex items-center gap-2">
+				<img src="/logo.png" alt="Archer Foundation logo" class="w-12 h-12 object-cover rounded-md">
+				<div>
+					<h1 class="font-bold text-xl leading-none text-white">ARCHER FOUNDATION</h1>
+					<p class="text-[10px] font-medium tracking-widest text-slate-200">KYP07030001</p>
+				</div>
+			</div>
+			<nav class="hidden md:flex items-center gap-6">
+				<a href="/index.html" class="nav-link font-medium hover:text-orange-500">Home</a>
+				<a href="/index.html#about" class="nav-link font-medium hover:text-orange-500">About</a>
+				<a href="/index.html#courses" class="nav-link font-medium hover:text-orange-500">Courses</a>
+				<a href="/gallery.html" class="nav-link font-medium hover:text-orange-500">Gallery</a>
+				<a href="/index.html#documents" class="nav-link font-medium hover:text-orange-500">Documents</a>
+				<a href="/faq.html" class="nav-link font-medium hover:text-orange-500">FAQ</a>
+				<a href="/index.html#contact" class="nav-link font-medium hover:text-orange-500">Contact</a>
+			</nav>
+            <button id="menu-toggle" class="md:hidden text-white">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+		</div>
+	</header>
+
+	<!-- Mobile Menu Overlay -->
+	<div id="mobile-menu" class="fixed inset-0 bg-white z-[60] hidden flex flex-col items-center justify-center gap-4 p-6 text-center">
+		<button id="menu-close" class="absolute top-6 right-6">
+			<i data-lucide="x" class="w-8 h-8 text-slate-900"></i>
+		</button>
+		<a href="/index.html" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">Home</a>
+		<a href="/index.html#about" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">About</a>
+		<a href="/index.html#courses" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">Courses</a>
+		<a href="/gallery.html" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">Gallery</a>
+		<a href="/index.html#documents" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">Documents</a>
+		<a href="/faq.html" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">FAQ</a>
+		<a href="/index.html#contact" class="mobile-nav-link block w-full text-2xl font-bold text-slate-800 py-3">Contact</a>
+	</div>
+
+	<main class="pt-24">
+		<!-- Hero -->
+		<section class="bg-blue-900 text-white py-20">
+			<div class="container mx-auto px-4 text-center">
+				<h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions (FAQ)</h1>
+				<p class="text-sm sm:text-base max-w-2xl mx-auto">Kushal Yuva Program (KYP) — common questions and answers.</p>
+			</div>
+		</section>
+
+		<!-- FAQ Section -->
+		<section class="py-12 sm:py-16">
+			<div class="container mx-auto px-4 max-w-3xl">
+				<div class="space-y-4">
+					<!-- Accordion item template -->
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">What is the Kushal Yuva Program (KYP)?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							KYP is a skill development program launched by the Bihar Government to improve youth employability through training in communication skills, life skills, and basic computer knowledge.
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">Who can apply for KYP?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							Any Bihar resident aged around 15–28 years who has passed at least Class 10 can apply. Age relaxation is available for reserved categories.
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">Is the training free?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							Yes, the training is provided free of cost by the government (for most eligible candidates).
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">What skills are taught in KYP?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							The program covers:
+							<ul class="list-disc pl-5 mt-2">
+								<li>Communication skills (English & Hindi)</li>
+								<li>Life/soft skills</li>
+								<li>Basic computer and IT skills</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">How long is the course?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							The total training duration is approximately 240 hours (around 3 months).
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">Will I get a certificate after completion?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							Yes, you will receive an official certificate from Bihar Skill Development Mission (BSDM).
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">How can I apply for KYP?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							You can apply online through the BSDM or 7 Nishchay Yuva portal and complete verification at your nearest DRCC (District Registration & Counseling Center).
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">Are there training centers in every district?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							Yes, KYP training centers are available across all districts of Bihar.
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">Does KYP guarantee a job?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							KYP focuses on skill development and employability. While it does not guarantee a job, it greatly improves job opportunities.
+						</div>
+					</div>
+
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<button class="faq-toggle w-full p-4 text-left flex items-center justify-between gap-4">
+							<span class="flex items-center gap-3">
+								<i data-lucide="help-circle" class="w-5 h-5 text-blue-600"></i>
+								<span class="font-semibold">Can girls apply for this program?</span>
+							</span>
+							<i data-lucide="chevron-down" class="w-5 h-5"></i>
+						</button>
+						<div class="faq-content px-4 pb-4 hidden text-slate-700">
+							Yes, both male and female candidates are encouraged to apply.
+						</div>
+					</div>
+
+					<!-- Ask prompt box -->
+					<div class="border rounded-xl overflow-hidden bg-white shadow-sm">
+						<div class="w-full p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+							<div class="flex items-start gap-3">
+								<i data-lucide="message-square" class="w-6 h-6 text-amber-500 mt-1"></i>
+								<div>
+									<p class="font-semibold">Still have questions?</p>
+									<p class="text-sm text-slate-600">If you have any specific requirements or doubts that weren't covered above, feel free to ask.</p>
+								</div>
+							</div>
+							<div class="w-full sm:w-auto">
+								<button id="ask-now-btn" class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-5 py-2.5 rounded-lg font-semibold transition-all">Ask Now</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- Ask modal (hidden) -->
+					<div id="ask-modal" class="fixed inset-0 z-[120] hidden items-center justify-center">
+						<div class="absolute inset-0 bg-slate-900/60" id="ask-modal-backdrop"></div>
+						<div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6 z-10">
+							<div class="flex items-center justify-between mb-4">
+								<div class="flex items-center gap-3">
+									<i data-lucide="edit-2" class="w-6 h-6 text-amber-500"></i>
+									<h3 class="font-bold text-lg">Ask a Question</h3>
+								</div>
+								<button id="ask-modal-close" class="p-2 rounded-full hover:bg-slate-100">
+									<i data-lucide="x" class="w-5 h-5 text-slate-600"></i>
+								</button>
+							</div>
+							<form id="ask-form" class="space-y-3" onsubmit="return false;">
+								<input id="ask-name" type="text" placeholder="Your Name" required class="w-full px-3 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-amber-400">
+								<input id="ask-phone" type="tel" placeholder="Mobile Number" pattern="[0-9]{10}" maxlength="10" required class="w-full px-3 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-amber-400">
+								<textarea id="ask-question" rows="4" placeholder="Your question" required class="w-full px-3 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-amber-400"></textarea>
+								<div class="flex items-center justify-between gap-3">
+									<button id="ask-submit" class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold">Submit</button>
+									<button type="button" id="ask-cancel" class="text-slate-600 hover:text-slate-800">Cancel</button>
+								</div>
+								<p id="ask-error" class="text-sm text-red-600 hidden mt-2"></p>
+								<p id="ask-feedback" class="text-sm text-green-600 hidden mt-2">Your question has been submitted. We'll contact you soon.</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer (matching index) -->
+	<footer class="bg-slate-50 pt-10 pb-6 border-t border-slate-200">
+		<div class="container mx-auto px-4 text-center">
+			<p class="text-slate-500 text-xs">Made with ❤️ and ☕ By Aagha Fazal</p>
+		</div>
+	</footer>
+ 
+	<script>
+		// initialize lucide icons
+		if (window.lucide) lucide.createIcons();
+ 
+		// Ask modal logic
+		(function(){
+			const askBtn = document.getElementById('ask-now-btn');
+			const modal = document.getElementById('ask-modal');
+			const backdrop = document.getElementById('ask-modal-backdrop');
+			const closeBtn = document.getElementById('ask-modal-close');
+			const cancelBtn = document.getElementById('ask-cancel');
+			const form = document.getElementById('ask-form');
+			const feedback = document.getElementById('ask-feedback');
+			const askError = document.getElementById('ask-error');
+ 
+			function openModal() {
+				modal.classList.remove('hidden');
+				modal.classList.add('flex');
+				// re-create icons inside modal if needed
+				if (window.lucide) lucide.createIcons();
+				// focus first field
+				setTimeout(()=> document.getElementById('ask-name')?.focus(), 50);
+			}
+			function closeModal() {
+				modal.classList.add('hidden');
+				modal.classList.remove('flex');
+				feedback.classList.add('hidden');
+				askError.classList.add('hidden');
+				form.reset();
+			}
+ 
+			askBtn?.addEventListener('click', openModal);
+			closeBtn?.addEventListener('click', closeModal);
+			cancelBtn?.addEventListener('click', closeModal);
+			backdrop?.addEventListener('click', closeModal);
+ 
+			document.getElementById('ask-submit')?.addEventListener('click', () => {
+				const name = document.getElementById('ask-name').value.trim();
+				const phone = document.getElementById('ask-phone').value.trim();
+				const question = document.getElementById('ask-question').value.trim();
+				// clear previous messages
+				askError.classList.add('hidden');
+				feedback.classList.add('hidden');
+ 
+				if (!name || !phone.match(/^\d{10}$/) || !question) {
+					askError.textContent = 'Please provide a name, a valid 10-digit phone number and your question.';
+					askError.classList.remove('hidden');
+					return;
+				}
+				// TODO: send to server (AJAX/fetch)
+				feedback.classList.remove('hidden');
+				setTimeout(closeModal, 1400);
+			});
+		})();
+ 
+		// Mobile menu toggle
+		const menuToggle = document.getElementById('menu-toggle');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const menuClose = document.getElementById('menu-close');
+		if (menuToggle && mobileMenu) {
+			menuToggle.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+		}
+		if (menuClose) menuClose.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+		document.querySelectorAll('#mobile-menu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+		// Simple accordion
+		document.querySelectorAll('.faq-toggle').forEach(btn => {
+			btn.addEventListener('click', () => {
+				const container = btn.parentElement;
+				const content = container.querySelector('.faq-content');
+				const isHidden = content.classList.contains('hidden');
+				// close others
+				document.querySelectorAll('.faq-content').forEach(c => { c.classList.add('hidden'); });
+				document.querySelectorAll('.faq-toggle i').forEach(i => { i.style.transform = 'rotate(0deg)'; });
+				// toggle
+				if (isHidden) {
+					content.classList.remove('hidden');
+					btn.querySelector('i').style.transform = 'rotate(180deg)';
+				} else {
+					content.classList.add('hidden');
+					btn.querySelector('i').style.transform = 'rotate(0deg)';
+				}
+			});
+		});
+	</script>
+</body>
+</html>
