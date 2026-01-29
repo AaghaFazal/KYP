@@ -1,0 +1,10 @@
+
+
+/* Basic container sizing (used in layout) */
+.container { max-width: 1200px; margin-left: auto; margin-right: auto; }
+
+/* Minor utility: ensure images don't overflow */
+img { max-width: 100%; height: auto; display: block; }
+
+/* Accessibility: focus outlines */
+:focus { outline: 2px dashed rgba(59,130,246,0.6); outline-offset: 2px; }
