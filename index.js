@@ -225,7 +225,6 @@ const closeNav = () => {
 
 navToggleBtn.addEventListener('click', openNav);
 navCloseBtn.addEventListener('click', closeNav);
-mobileLinks.forEach(link => link.addEventListener('click', closeNav));
 
 // Hero Slider Interaction (only run if slider exists)
 let activeSlideIndex = 0;
@@ -279,6 +278,18 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
                 top: targetElement.offsetTop - 80,
                 behavior: 'smooth'
             });
+
+            // Immediately update active nav so UI reflects user's click (works for mobile & desktop)
+            if (elementId && elementId.startsWith('#')) {
+                const id = elementId.slice(1);
+                // set active and lock observer for the duration of the scroll
+                if (window.setActiveNav) window.setActiveNav(id, { lockTimeout: 900 });
+
+                // Fallback: ensure final state after scroll finishes
+                setTimeout(() => {
+                    if (window.setActiveNav) window.setActiveNav(id);
+                }, 1000);
+            }
         }
     });
 });
@@ -320,6 +331,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 // Dynamic nav color based on visible section
 (function () {
   if (typeof window === 'undefined') return;
+
   document.addEventListener('DOMContentLoaded', () => {
     const sections = Array.from(document.querySelectorAll('section[data-nav-color]'));
     if (!sections.length) return;
@@ -343,13 +355,28 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     };
 
     const ACTIVE_NAV_COLOR = '#f97316'; // Unified orange used across sections
+
+    // Expose a global helper so click handlers can set active nav immediately
+    // and temporarily lock observer-based updates so they don't override during smooth scroll
+    window.setActiveNav = function(sectionId, { lockTimeout = 700 } = {}) {
+      updateActiveLink(sectionId, ACTIVE_NAV_COLOR);
+      // lock observer updates for the provided timeout (ms)
+      window._navUpdateLocked = true;
+      clearTimeout(window._navUpdateLockTimer);
+      window._navUpdateLockTimer = setTimeout(() => {
+        window._navUpdateLocked = false;
+      }, lockTimeout);
+    };
+
     const obs = new IntersectionObserver((entries) => {
+      // don't override a manual click-based activation while locked
+      if (window._navUpdateLocked) return;
+
       // Choose the most visible intersecting section
       const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (!visible) return;
       const id = visible.target.id;
-      const color = ACTIVE_NAV_COLOR;
-      updateActiveLink(id, color);
+      updateActiveLink(id, ACTIVE_NAV_COLOR);
     }, { threshold: [0.5, 0.65, 0.85], rootMargin: '0px 0px -20% 0px' });
 
     sections.forEach(s => obs.observe(s));
@@ -358,3 +385,21 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     setTimeout(() => { window.dispatchEvent(new Event('scroll')); }, 50);
   });
 })();
+
+// Replace mobile link click listeners so clicks close the menu and set active nav immediately
+mobileLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        // close the mobile menu
+        closeNav();
+        // Extract target id and mark active (lock observer so it doesn't override during scroll)
+        const href = link.getAttribute('href') || '';
+        if (href.startsWith('#')) {
+            const id = href.slice(1);
+            if (window.setActiveNav) window.setActiveNav(id, { lockTimeout: 900 });
+            // Also ensure final state after a short delay
+            setTimeout(() => {
+                if (window.setActiveNav) window.setActiveNav(id);
+            }, 1000);
+        }
+    });
+});
