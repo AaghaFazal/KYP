@@ -1,4 +1,3 @@
-
 // Initialize Lucide Icons
 if (window.lucide) {
     lucide.createIcons();
@@ -283,3 +282,79 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
         }
     });
 });
+
+// Reveal-on-scroll and header scroll-state script
+(function () {
+  if (typeof window === 'undefined') return;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Respect reduced motion
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+    } else {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+
+    // Header scrolled state
+    const header = document.getElementById('main-header');
+    const onScroll = () => {
+      if (!header) return;
+      if (window.scrollY > 40) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  });
+})();
+
+// Dynamic nav color based on visible section
+(function () {
+  if (typeof window === 'undefined') return;
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = Array.from(document.querySelectorAll('section[data-nav-color]'));
+    if (!sections.length) return;
+
+    const navLinks = Array.from(document.querySelectorAll('.nav-link, .mobile-nav-link'));
+
+    const updateActiveLink = (sectionId, color) => {
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href') || '';
+        // Match both "#id" and full urls ending with the hash
+        if (href.endsWith('#' + sectionId)) {
+          link.style.color = color || '';
+          link.classList.add('active');
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.style.color = '';
+          link.classList.remove('active');
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    const ACTIVE_NAV_COLOR = '#f97316'; // Unified orange used across sections
+    const obs = new IntersectionObserver((entries) => {
+      // Choose the most visible intersecting section
+      const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      const id = visible.target.id;
+      const color = ACTIVE_NAV_COLOR;
+      updateActiveLink(id, color);
+    }, { threshold: [0.5, 0.65, 0.85], rootMargin: '0px 0px -20% 0px' });
+
+    sections.forEach(s => obs.observe(s));
+
+    // Fire a small scroll event to ensure correct initial state
+    setTimeout(() => { window.dispatchEvent(new Event('scroll')); }, 50);
+  });
+})();
