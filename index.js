@@ -228,39 +228,46 @@ navToggleBtn.addEventListener('click', openNav);
 navCloseBtn.addEventListener('click', closeNav);
 mobileLinks.forEach(link => link.addEventListener('click', closeNav));
 
-// Hero Slider Interaction
+// Hero Slider Interaction (only run if slider exists)
 let activeSlideIndex = 0;
 const sliderFrames = document.querySelectorAll('.slide');
 const navDots = document.querySelectorAll('.slider-dot');
 
-function renderSlider(index) {
-    sliderFrames.forEach(frame => frame.classList.remove('active'));
-    navDots.forEach(dot => {
-        dot.classList.remove('w-10', 'bg-orange-500');
-        dot.classList.add('w-2', 'bg-white/50');
-    });
+if (sliderFrames.length > 0 && navDots.length > 0) {
+    function renderSlider(index) {
+        sliderFrames.forEach(frame => frame.classList.remove('active'));
+        navDots.forEach(dot => {
+            dot.classList.remove('w-10', 'bg-orange-500');
+            dot.classList.add('w-2', 'bg-white/50');
+        });
 
-    sliderFrames[index].classList.add('active');
-    navDots[index].classList.remove('w-2', 'bg-white/50');
-    navDots[index].classList.add('w-10', 'bg-orange-500');
-}
+        sliderFrames[index].classList.add('active');
+        navDots[index].classList.remove('w-2', 'bg-white/50');
+        navDots[index].classList.add('w-10', 'bg-orange-500');
+    }
 
-function rotateSlider() {
-    activeSlideIndex = (activeSlideIndex + 1) % sliderFrames.length;
-    renderSlider(activeSlideIndex);
-}
-
-// Auto-run slider
-let rotationTimer = setInterval(rotateSlider, 6000);
-
-navDots.forEach((dot, idx) => {
-    dot.addEventListener('click', () => {
-        activeSlideIndex = idx;
+    function rotateSlider() {
+        activeSlideIndex = (activeSlideIndex + 1) % sliderFrames.length;
         renderSlider(activeSlideIndex);
-        clearInterval(rotationTimer);
-        rotationTimer = setInterval(rotateSlider, 6000);
+    }
+
+    // Auto-run slider
+    let rotationTimer = setInterval(rotateSlider, 6000);
+
+    navDots.forEach((dot, idx) => {
+        dot.addEventListener('click', () => {
+            activeSlideIndex = idx;
+            renderSlider(activeSlideIndex);
+            clearInterval(rotationTimer);
+            rotationTimer = setInterval(rotateSlider, 6000);
+        });
     });
-});
+
+    // Initialize slider
+    renderSlider(activeSlideIndex);
+} else {
+    console.debug('No slider found on this page; skipping slider initialization.');
+}
 
 // Implementation of Smooth Scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(link => {
