@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Archer Foundation | KYP Admission KYP07030001</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Note: Tailwind CDN shows a console warning. For production, install Tailwind via PostCSS or the CLI per https://tailwindcss.com/docs/installation -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -33,7 +34,8 @@
             .nav-link { display: none; }
         }
     </style>
-<link rel="stylesheet" href="/index.css">
+<!-- Local stylesheet (created to avoid 404 / MIME errors). Use a build step for Tailwind in production instead of CDN. -->
+<link rel="stylesheet" href="index.css">
 </head>
 <body class="bg-slate-50 text-slate-900 overflow-x-hidden">
     <!-- Header -->
@@ -388,7 +390,7 @@
 
     <!-- Main Logic Script -->
     <script src="./index.js"></script>
-    <script type="module" src="/index.tsx"></script>
+    <!-- Removed unused module import `index.tsx` (was causing 404). Add your module script here if needed -->
 
     <!-- Inline: intercept FormSubmit forms to avoid redirect/branding -->
     <script>
