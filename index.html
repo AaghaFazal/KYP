@@ -22,17 +22,54 @@
         #syllabus-modal.hidden { display: none; opacity: 0; }
         .modal-content { transform: scale(0.95); transition: transform 0.3s ease; }
         #syllabus-modal:not(.hidden) .modal-content { transform: scale(1); }
-        
-        /* Responsive Improvements */
-        @media (max-width: 640px) {
-            .container { padding-left: 1rem; padding-right: 1rem; }
+
+        /* Scroll reveal animations */
+        .reveal { opacity: 0; transform: translateY(24px) scale(.98); transition: opacity 600ms cubic-bezier(.16,.84,.6,1), transform 600ms cubic-bezier(.16,.84,.6,1); will-change: opacity, transform; }
+        .reveal.in-view { opacity: 1; transform: translateY(0) scale(1); }
+        .reveal-left { transform: translateX(-24px) scale(.98); }
+        .reveal-right { transform: translateX(24px) scale(.98); }
+        .reveal-scale { transform: scale(.97); }
+        .reveal.in-view.reveal-left,
+        .reveal.in-view.reveal-right,
+        .reveal.in-view.reveal-scale { transform: none; }
+        .reveal[data-delay="100"] { transition-delay: 100ms; }
+        .reveal[data-delay="200"] { transition-delay: 200ms; }
+        .reveal[data-delay="300"] { transition-delay: 300ms; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .reveal.in-view { transition: none; transform: none; opacity: 1; }
         }
-        
-        /* Mobile-first header */
-        @media (max-width: 768px) {
-            #main-header { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-            .nav-link { display: none; }
+
+        /* Header scrolled state */
+        #main-header { background: transparent; transition: background-color .25s ease, box-shadow .25s ease, color .25s ease; }
+        #main-header.scrolled { background: #ffffff; box-shadow: 0 8px 30px rgba(2,6,23,0.08); }
+        #main-header.scrolled #logo-text,
+        #main-header.scrolled #tagline-text { color: #0f172a !important; }
+
+        /* Remove blue focus outline on mouse click but preserve keyboard focus visibility */
+        /* Hide outlines for non-keyboard interactions */
+        :focus:not(:focus-visible) {
+            outline: none !important;
+            box-shadow: none !important;
         }
+
+        /* Ensure common interactive elements don't show the browser blue ring on click */
+        .nav-link:focus,
+        .mobile-nav-link:focus,
+        button:focus,
+        .slider-dot:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Active nav link styling (color is applied via JS) */
+        .nav-link.active,
+        .mobile-nav-link.active {
+            font-weight: 700;
+            transition: color 180ms ease;
+        }
+
+        /* ...existing code... */
     </style>
 <!-- Local stylesheet (created to avoid 404 / MIME errors). Use a build step for Tailwind in production instead of CDN. -->
 <link rel="stylesheet" href="index.css">
@@ -50,7 +87,7 @@
             </div>
 
             <nav class="hidden md:flex items-center gap-8">
-                <a onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" href="#" class="nav-link font-medium hover:text-orange-500 transition-colors cursor-pointer">Home</a>
+                <a href="#home" class="nav-link font-medium hover:text-orange-500 transition-colors cursor-pointer">Home</a>
                 <a href="#about" class="nav-link font-medium hover:text-orange-500 transition-colors">About</a>
                 <a href="#courses" class="nav-link font-medium hover:text-orange-500 transition-colors">Courses</a>
                 <a href="gallery.html" class="nav-link font-medium hover:text-orange-500 transition-colors">Gallery</a>
@@ -70,7 +107,7 @@
         <button id="menu-close" class="absolute top-6 right-6">
             <i data-lucide="x" class="w-8 h-8 text-slate-900"></i>
         </button>
-        <a onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" href="#" class="mobile-nav-link text-2xl font-bold text-slate-800 cursor-pointer">Home</a>
+        <a href="#home" class="mobile-nav-link text-2xl font-bold text-slate-800 cursor-pointer">Home</a>
         <a href="#about" class="mobile-nav-link text-2xl font-bold text-slate-800">About</a>
         <a href="#courses" class="mobile-nav-link text-2xl font-bold text-slate-800">Courses</a>
         <a href="gallery.html" class="mobile-nav-link text-2xl font-bold text-slate-800">Gallery</a>
@@ -80,17 +117,17 @@
     </div>
 
     <!-- Hero Slider -->
-    <section class="relative h-screen min-h-[500px] sm:min-h-[600px] w-full overflow-hidden bg-slate-900 pt-16 sm:pt-20 md:pt-24">
+    <section id="home" data-nav-color="#f97316" class="relative h-screen min-h-[500px] sm:min-h-[600px] w-full overflow-hidden bg-slate-900 pt-16 sm:pt-20 md:pt-24">
         <div id="hero-slider" class="h-full">
             <div class="slide active h-full">
                 <div class="absolute inset-0 bg-black/60 z-10"></div>
                 <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1920" class="w-full h-full object-cover" alt="Students learning">
                 <div class="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-3 sm:px-4">
-                    <span class="inline-block bg-orange-600 text-white text-xs font-bold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full mb-4 sm:mb-6 tracking-widest uppercase text-[10px] sm:text-xs">KYP07030001</span>
-                    <h2 class="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight fade-in">Shape a Brighter Tomorrow</h2>
-                    <p class="text-sm sm:text-lg md:text-2xl text-slate-200 mb-6 sm:mb-10 max-w-2xl mx-auto">Admission is going on for Kushal Yuva Program (KYP)</p>
+                    <span class="inline-block bg-orange-600 text-white text-xs font-bold px-3 sm:px-4 py-1 sm:py-1.5 rounded-full mb-4 sm:mb-6 tracking-widest uppercase text-[10px] sm:text-xs reveal" data-delay="100">KYP07030001</span>
+                    <h2 class="text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight fade-in reveal" data-delay="100">Shape a Brighter Tomorrow</h2>
+                    <p class="text-sm sm:text-lg md:text-2xl text-slate-200 mb-6 sm:mb-10 max-w-2xl mx-auto reveal" data-delay="200">Admission is going on for Kushal Yuva Program (KYP)</p>
                     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <a href="#contact" class="bg-orange-600 hover:bg-orange-700 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-lg flex items-center justify-center gap-2 transition-all">Apply Now <i data-lucide="arrow-right" class="w-4 sm:w-5 h-4 sm:h-5"></i></a>
+                        <a href="#contact" class="bg-orange-600 hover:bg-orange-700 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-lg flex items-center justify-center gap-2 transition-all reveal" data-delay="300">Apply Now <i data-lucide="arrow-right" class="w-4 sm:w-5 h-4 sm:h-5"></i></a>
                     </div>
                 </div>
             </div>
@@ -113,10 +150,10 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-12 sm:py-16 md:py-24 bg-white">
+    <section id="about" data-nav-color="#ea580c" class="py-12 sm:py-16 md:py-24 bg-white">
         <div class="container mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-16">
-                <div class="lg:w-1/2 space-y-4 sm:space-y-6">
+                <div class="lg:w-1/2 space-y-4 sm:space-y-6 reveal reveal-left" data-delay="100">
                     <h4 class="text-orange-600 font-bold tracking-widest uppercase text-xs sm:text-sm">Empowering Bihar's Youth</h4>
                     <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold text-blue-900 leading-tight">About Kushal Yuva Program (KYP)</h2>
                     <p class="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed">
@@ -138,12 +175,12 @@
                 </div>
                 
                 <div class="lg:w-1/2 w-full grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 relative">
-                    <div class="p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg lg:shadow-xl bg-blue-900 text-white flex flex-col items-center text-center">
+                    <div class="p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg lg:shadow-xl bg-blue-900 text-white flex flex-col items-center text-center reveal reveal-scale" data-delay="150">
                         <i data-lucide="users" class="w-10 sm:w-14 h-10 sm:h-14 mb-3 sm:mb-4 text-blue-300"></i>
                         <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">2490+</h3>
                         <p class="text-xs sm:text-sm lg:text-lg font-semibold uppercase tracking-wider text-blue-300">Admissions</p>
                     </div>
-                    <div class="p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg lg:shadow-xl bg-orange-600 text-white flex flex-col items-center text-center">
+                    <div class="p-6 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl shadow-lg lg:shadow-xl bg-orange-600 text-white flex flex-col items-center text-center reveal reveal-scale" data-delay="200">
                         <i data-lucide="award" class="w-10 sm:w-14 h-10 sm:h-14 mb-3 sm:mb-4 text-orange-200"></i>
                         <h3 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2">2274+</h3>
                         <p class="text-xs sm:text-sm lg:text-lg font-semibold uppercase tracking-wider text-orange-100">Certified</p>
@@ -154,7 +191,7 @@
     </section>
 
     <!-- Syllabus Section -->
-    <section id="courses" class="py-12 sm:py-16 md:py-24 bg-slate-50">
+    <section id="courses" data-nav-color="#2563eb" class="py-12 sm:py-16 md:py-24 bg-slate-50">
         <div class="container mx-auto px-4">
             <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-16">
                 <h4 class="text-orange-600 font-bold tracking-widest uppercase text-xs sm:text-sm mb-3 sm:mb-4">Curriculum</h4>
@@ -163,7 +200,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 md:gap-8 mb-12 sm:mb-20">
                 <!-- BS-CIT Card -->
-                <button onclick="openSyllabus('BS-CIT')" class="group text-left bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <button onclick="openSyllabus('BS-CIT')" class="group text-left bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all reveal" data-delay="100">
                     <div class="bg-blue-600 text-white w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-blue-100">
                         <i data-lucide="monitor" class="w-6 sm:w-8 h-6 sm:h-8"></i>
                     </div>
@@ -176,7 +213,7 @@
                 </button>
 
                 <!-- BS-CLS Card -->
-                <button onclick="openSyllabus('BS-CLS')" class="group text-left bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <button onclick="openSyllabus('BS-CLS')" class="group text-left bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all reveal" data-delay="200">
                     <div class="bg-orange-600 text-white w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-orange-100">
                         <i data-lucide="message-circle" class="w-6 sm:w-8 h-6 sm:h-8"></i>
                     </div>
@@ -189,7 +226,7 @@
                 </button>
 
                 <!-- BS-CSS Card -->
-                <button onclick="openSyllabus('BS-CSS')" class="group text-left bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all">
+                <button onclick="openSyllabus('BS-CSS')" class="group text-left bg-white p-5 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-2 transition-all reveal" data-delay="300">
                     <div class="bg-emerald-600 text-white w-12 sm:w-16 h-12 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-emerald-100">
                         <i data-lucide="handshake" class="w-6 sm:w-8 h-6 sm:h-8"></i>
                     </div>
@@ -256,7 +293,7 @@
     </div>
 
     <!-- Documents Section -->
-    <section id="documents" class="py-12 sm:py-16 md:py-24 bg-blue-900 text-white overflow-hidden relative">
+    <section id="documents" data-nav-color="#ffffff" class="py-12 sm:py-16 md:py-24 bg-blue-900 text-white overflow-hidden relative">
         <div class="container mx-auto px-4 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-8 md:gap-16">
                 <div class="lg:w-1/2">
@@ -265,23 +302,23 @@
                     <p class="text-blue-200 text-sm sm:text-base md:text-lg mb-8 sm:mb-10">Bring originals and photocopies for verification during admission.</p>
                 </div>
                 <div class="lg:w-1/2 w-full space-y-3 sm:space-y-4">
-                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5">
+                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5 reveal reveal-right" data-delay="100">
                         <div class="bg-orange-600 p-2 sm:p-3 rounded-lg sm:rounded-xl shrink-0"><i data-lucide="credit-card" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
                         <div><h4 class="font-bold text-sm sm:text-lg">Aadhaar Card</h4><p class="text-blue-100 text-xs sm:text-sm mt-1">Used to verify your identity and personal details.</p></div>
                     </div>
-                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5">
+                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5 reveal reveal-right" data-delay="150">
                         <div class="bg-orange-600 p-2 sm:p-3 rounded-lg sm:rounded-xl shrink-0"><i data-lucide="landmark" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
                         <div><h4 class="font-bold text-sm sm:text-lg">Bank Passbook</h4><p class="text-blue-100 text-xs sm:text-sm mt-1">Required to confirm your bank account information.</p></div>
                     </div>
-                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5">
+                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5 reveal reveal-right" data-delay="200">
                         <div class="bg-orange-600 p-2 sm:p-3 rounded-lg sm:rounded-xl shrink-0"><i data-lucide="home" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
                         <div><h4 class="font-bold text-sm sm:text-lg">Residence Certificate</h4><p class="text-blue-100 text-xs sm:text-sm mt-1">Proof of your permanent address and local residency status.</p></div>
                     </div>
-                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5">
+                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5 reveal reveal-right" data-delay="250">
                         <div class="bg-orange-600 p-2 sm:p-3 rounded-lg sm:rounded-xl shrink-0"><i data-lucide="image" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
                         <div><h4 class="font-bold text-sm sm:text-lg">Passport Size Photo</h4><p class="text-blue-100 text-xs sm:text-sm mt-1">One recent colour photograph.</p></div>
                     </div>
-                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5">
+                    <div class="bg-white/10 p-4 sm:p-5 rounded-lg sm:rounded-2xl border border-white/10 flex items-center gap-3 sm:gap-5 reveal reveal-right" data-delay="300">
                         <div class="bg-orange-600 p-2 sm:p-3 rounded-lg sm:rounded-xl shrink-0"><i data-lucide="graduation-cap" class="w-5 sm:w-6 h-5 sm:h-6"></i></div>
                         <div><h4 class="font-bold text-sm sm:text-lg">10th/12th Marksheet</h4><p class="text-blue-100 text-xs sm:text-sm mt-1">Academic proof showing your previous education qualifications.</p></div>
                     </div>
@@ -291,10 +328,10 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-12 sm:py-16 md:py-24 bg-white">
+    <section id="contact" data-nav-color="#f97316" class="py-12 sm:py-16 md:py-24 bg-white">
         <div class="container mx-auto px-4">
             <div class="bg-slate-900 rounded-xl sm:rounded-2xl lg:rounded-[3rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row">
-                <div class="lg:w-1/2 p-6 sm:p-8 md:p-12 lg:p-16 text-white">
+                <div class="lg:w-1/2 p-6 sm:p-8 md:p-12 lg:p-16 text-white reveal reveal-left" data-delay="100">
                     <h4 class="text-orange-500 font-bold uppercase text-xs sm:text-sm mb-2 sm:mb-4">Contact Us</h4>
                     <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8">Visit Archer Foundation</h2>
                     <div class="space-y-6 sm:space-y-8">
@@ -308,7 +345,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="lg:w-1/2 bg-slate-800 p-6 sm:p-8 md:p-12 lg:p-16">
+                <div class="lg:w-1/2 bg-slate-800 p-6 sm:p-8 md:p-12 lg:p-16 reveal reveal-right" data-delay="150">
                     <div class="bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl p-6 sm:p-8 shadow-xl">
                         <h3 class="text-lg sm:text-2xl font-bold mb-4 sm:mb-6">Quick Inquiry</h3>
                         <form class="space-y-3 sm:space-y-4" action="https://formsubmit.co/249b9f301cf63e85cfd206470fba3f75" method="POST">
@@ -328,7 +365,7 @@
     <footer class="bg-slate-50 pt-10 sm:pt-16 md:pt-20 pb-6 sm:pb-8 lg:pb-10 border-t border-slate-200">
         <div class="container mx-auto px-4">
             <!-- Footer Top Section -->
-            <div class="mb-8 sm:mb-12">
+            <div class="mb-8 sm:mb-12 reveal" data-delay="100">
                 <div class="flex items-center justify-center gap-2 mb-6 sm:mb-8">
                     <img src="/logo.png" alt="Archer Foundation logo" class="w-12 sm:w-14 h-12 sm:h-14 object-cover rounded-sm">
                     <h2 class="font-bold text-lg sm:text-2xl text-blue-900">ARCHER FOUNDATION</h2>
@@ -339,7 +376,7 @@
                     <div>
                         <h3 class="font-bold text-slate-900 mb-3 text-sm sm:text-base">Quick Links</h3>
                         <ul class="space-y-2">
-                            <li><a onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" href="#" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm cursor-pointer">Home</a></li>
+                            <li><a href="#home" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm cursor-pointer">Home</a></li>
                             <li><a href="#about" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm">About</a></li>
                             <li><a href="#courses" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm">Courses</a></li>
                         </ul>
@@ -364,7 +401,7 @@
                         <h3 class="font-bold text-slate-900 mb-3 text-sm sm:text-base">Contact</h3>
                         <ul class="space-y-2">
                             <li><a href="tel:+918809676142" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm">+91 88096 76142</a></li>
-                            <li><a href="mailto:info@archerfoundation.com" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm">info@archerfoundation.com</a></li>
+                            <li><a href="mailto:informasgher@gmail.com" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm">informasgher@gmail.com</a></li>
                             <li><a href="#contact" class="text-slate-600 hover:text-orange-600 transition-colors text-xs sm:text-sm">Enquire Now</a></li>
                         </ul>
                     </div>
