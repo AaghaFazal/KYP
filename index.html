@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            <nav class="hidden md:flex items-center gap-8">
+            <nav class="hidden lg:flex items-center gap-8">
                 <a href="#home" class="nav-link font-medium hover:text-orange-500 transition-colors cursor-pointer">Home</a>
                 <a href="#about" class="nav-link font-medium hover:text-orange-500 transition-colors">About</a>
                 <a href="#courses" class="nav-link font-medium hover:text-orange-500 transition-colors">Courses</a>
@@ -96,7 +96,7 @@
                 <a href="#contact" class="nav-link font-medium hover:text-orange-500 transition-colors">Contact</a>
             </nav>
 
-            <button id="menu-toggle" class="md:hidden text-white">
+            <button id="menu-toggle" class="lg:hidden text-white">
                 <i data-lucide="menu" class="w-7 h-7"></i>
             </button>
         </div>
@@ -435,7 +435,69 @@
       const forms = Array.from(document.querySelectorAll('form[action^="https://formsubmit.co/"]'));
       forms.forEach(form => {
         form.addEventListener('submit', async (e) => {
+          // Prevent duplicate submissions
+          if (form.dataset.submitted === 'true') {
+            e.preventDefault();
+            return;
+          }
+
+          // Ensure client-side validity first
+          if (!form.checkValidity()) {
+            // Let the browser show validations
+            form.reportValidity();
+            e.preventDefault();
+            return;
+          }
+
           e.preventDefault();
+
+          // mark as submitted immediately to avoid race conditions
+          form.dataset.submitted = 'true';
+
+          // Helper to disable/enable submit controls and show feedback
+          const submitControls = Array.from(form.querySelectorAll('button[type="submit"], input[type="submit"]'));
+          // Keep track of the button that triggered the submit (modern browsers expose `e.submitter`)
+          const submitter = e.submitter || submitControls[0];
+
+          const disableSubmitControls = () => {
+            submitControls.forEach(ctrl => {
+              // store original content/value (if not already stored)
+              if (ctrl.dataset.originalHtml === undefined) ctrl.dataset.originalHtml = ctrl.innerHTML ?? '';
+              if (ctrl.dataset.originalValue === undefined) ctrl.dataset.originalValue = ctrl.value ?? '';
+              ctrl.disabled = true;
+              ctrl.setAttribute('aria-disabled', 'true');
+              ctrl.setAttribute('aria-busy', 'true');
+            });
+            if (submitter) {
+              if (submitter.tagName === 'BUTTON') submitter.innerHTML = 'Submitting...';
+              else submitter.value = 'Submitting...';
+            }
+          };
+          const enableSubmitControls = () => {
+            submitControls.forEach(ctrl => {
+              ctrl.disabled = false;
+              ctrl.removeAttribute('aria-disabled');
+              ctrl.removeAttribute('aria-busy');
+              if (ctrl.tagName === 'BUTTON' && ctrl.dataset.originalHtml !== undefined) ctrl.innerHTML = ctrl.dataset.originalHtml;
+              if (ctrl.tagName !== 'BUTTON' && ctrl.dataset.originalValue !== undefined) ctrl.value = ctrl.dataset.originalValue;
+              delete ctrl.dataset.originalHtml;
+              delete ctrl.dataset.originalValue;
+            });
+          };
+
+          // mark busy & disable
+          disableSubmitControls();
+
+          // safety timeout: re-enable after 30s if no response (prevents stuck state)
+          const timeoutMs = 30000;
+          let timedOut = false;
+          const timeoutId = setTimeout(() => {
+            timedOut = true;
+            form.dataset.submitted = 'false';
+            enableSubmitControls();
+            alert('Submission timed out. Please try again.');
+          }, timeoutMs);
+
           try {
             const fd = new FormData(form);
             const res = await fetch(form.action, {
@@ -443,15 +505,32 @@
               body: fd,
               headers: { 'Accept': 'application/json' }
             });
+
+            clearTimeout(timeoutId);
+
+            if (timedOut) return; // already handled by timeout
+
             if (res.ok) {
-              // local acknowledgement (replace with custom UI if desired)
+              // success: show acknowledgement and keep disabled to avoid duplicates
+              if (submitter) {
+                if (submitter.tagName === 'BUTTON') submitter.innerHTML = 'Submitted';
+                else submitter.value = 'Submitted';
+              }
               alert('Thank you — Inquiry Submitted! Our team will contact you soon.');
               form.reset();
               if (typeof window.closeAdmissionModal === 'function') window.closeAdmissionModal();
+              // keep the form disabled (dataset.submitted remains 'true')
             } else {
+              // failure: allow retry
+              form.dataset.submitted = 'false';
+              enableSubmitControls();
               alert('Submission failed. Please try again.');
             }
           } catch (err) {
+            clearTimeout(timeoutId);
+            // network/error: allow retry
+            form.dataset.submitted = 'false';
+            enableSubmitControls();
             alert('Submission failed. Please try again.');
           }
         });
