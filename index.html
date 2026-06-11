@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archer Foundation</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    width:100vw;
+    height:100vh;
+    background:#0f172a;
+    font-family:Arial, sans-serif;
+    cursor:pointer;
+}
+
+.logo{
+    position:absolute;
+    font-size:28px;
+    font-weight:700;
+    white-space:nowrap;
+    user-select:none;
+    pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+const targetUrl = "https://www.archerfoundation.in/";
+const total = 18;
+
+const colors = [
+    "#ffffff",
+    "#38bdf8",
+    "#22c55e",
+    "#f59e0b",
+    "#ef4444",
+    "#a855f7",
+    "#14b8a6",
+    "#eab308"
+];
+
+document.body.addEventListener("click", () => {
+    window.location.href = targetUrl;
+});
+
+const items = [];
+
+for(let i = 0; i < total; i++){
+
+    const el = document.createElement("div");
+
+    el.className = "logo";
+    el.innerText = "Archer Foundation";
+
+    el.style.color =
+        colors[Math.floor(Math.random() * colors.length)];
+
+    document.body.appendChild(el);
+
+    items.push({
+        el: el,
+        x: Math.random() * (window.innerWidth - 250),
+        y: Math.random() * (window.innerHeight - 50),
+
+        vx: (Math.random() - 0.5) * 6,
+        vy: (Math.random() - 0.5) * 6,
+
+        gravityX: (Math.random() - 0.5) * 0.03,
+        gravityY: (Math.random() - 0.5) * 0.03,
+
+        angle: Math.random() * 360,
+        rotateSpeed: (Math.random() - 0.5) * 4
+    });
+}
+
+function animate(){
+
+    items.forEach(item => {
+
+        item.vx += item.gravityX;
+        item.vy += item.gravityY;
+
+        item.x += item.vx;
+        item.y += item.vy;
+
+        item.angle += item.rotateSpeed;
+
+        if(item.x <= 0 || item.x >= window.innerWidth - item.el.offsetWidth){
+            item.vx *= -1;
+        }
+
+        if(item.y <= 0 || item.y >= window.innerHeight - item.el.offsetHeight){
+            item.vy *= -1;
+        }
+
+        item.el.style.left = item.x + "px";
+        item.el.style.top = item.y + "px";
+
+        item.el.style.transform =
+            `rotate(${item.angle}deg)`;
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+
+</body>
+</html>
