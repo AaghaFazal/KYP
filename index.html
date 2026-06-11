@@ -31,7 +31,7 @@ body{
 
 <script>
 const targetUrl = "https://www.archerfoundation.in/";
-const total = 18;
+const total = 9;
 
 const colors = [
     "#ffffff",
@@ -56,6 +56,34 @@ for(let i = 0; i < total; i++){
 
     el.className = "logo";
     el.innerText = "Archer Foundation";
+
+    el.style.color =
+        colors[Math.floor(Math.random() * colors.length)];
+
+    document.body.appendChild(el);
+
+    items.push({
+        el: el,
+        x: Math.random() * (window.innerWidth - 250),
+        y: Math.random() * (window.innerHeight - 50),
+
+        vx: (Math.random() - 0.5) * 6,
+        vy: (Math.random() - 0.5) * 6,
+
+        gravityX: (Math.random() - 0.5) * 0.03,
+        gravityY: (Math.random() - 0.5) * 0.03,
+
+        angle: Math.random() * 360,
+        rotateSpeed: (Math.random() - 0.5) * 4
+    });
+}
+
+for(let i = 0; i < total; i++){
+
+    const el = document.createElement("div");
+
+    el.className = "logo";
+    el.innerText = "KYP07030001";
 
     el.style.color =
         colors[Math.floor(Math.random() * colors.length)];
